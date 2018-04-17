@@ -1,0 +1,343 @@
+08-03-2018
+
+
+Version controlling:
+====================
+
+version controlling is process of saving different versions of the code.  Each developer at the end of the day uploads his code into some version controlling system. The version controlling systems accept the code coming from multiple developers and created one integrated project out of those uploads.
+
+The porocess of uploading into version controlling is called checkin.
+The next day when the developers download the code from the version controlling system in this downloaded code they can find the work done by the entire team members. downloading is called checkout.
+
+Version controlling systems are two types:
+1. Centralised version controlling
+2. Distributed version controlling:
+
+CVC: In cvc the version controlling software is installed on a single machine all the developers have to upload their code into this server.  	Version controlling happens only on this machine.  It tracks the changes done by each developer
+
+DVC: In DVC we have a local repository installed on every individual developers machine. The code created by each developer will be uploaded first 	into this local repository. Version controlling happens in this local repository at the level of individual developer.
+
+Later this code from local repository is uploaded into a remote repository which runs on a centralised server. Here version controlling happens at the level of the complete team.
+
+Installing Git on windows:
+==========================
+1. Open https://git-scm.com/downloads
+2. download Git for windows and install it
+3. Open git bash and fire Git commands
+
+Installing git on ubuntu machine
+=================================
+1. sudo apt-get update
+2. sudo apt-get install git
+
+installing git on centos, fedora, OEL, RHEL
+
+1. sudo yum updarte
+2. sudo yum install git
+
+
+
+09-03-2018
+
+Open Gitbash set the username and email ID for all the users for git on this machine.
+
+
+
+git config --global user.name "sai krishna"
+
+git config --global user.email "selenium.saikrishna@gmail.com"
+
+
+to see the list of  all the global configuration:
+git config --global --list
+
+to edit the default configurations:
+git config --global -e
+
+Create a folder and put some files in it.
+Open Gitbash change directory to  this folder.
+this folder where developer storing the code should be converted into a git reporsitory. this can be done using this command
+git init
+
+Note: git init will create a hidden folder called as .git.  Once this folder is created we can start executing git commands.
+
+
+Git is devided into 3 sections:
+
+1. Working Directory
+2. Staging Area
+3. Git Local Repository
+
+Working directory is the default folder where the developer is creating the code. the file presend here are called untracked files.
+
+stagging area is the intermediate buffer zone into which files are initially transferred. The files in stagging area are called stagged files.
+
+Git Local Repository is the area where version controlling happens at the level of the individual developer.  All the files in the stagging are sent intothe local repository.  These files are called committed files.
+
+
+To send files from working directory to stagging area 
+git add filename
+
+To send multiple files into stagging area
+git add file1 file2 file3
+
+To send all the files present in the current working directory into staging area
+git add .
+
+Note: . represents current working directory.
+
+To remove a file from  stagging area and bring back to untracked section
+git rm --cached filename
+or 
+git reset filename
+
+
+To send files from stagging are to local repository
+git commit -m "some message"
+
+To see the list of files in untracked section and stagging area
+git status
+
+to see all the commits done into the Local Repository
+git log
+
+
+.gitignore
+
+This is a hidden file which is used to store info about files  that git should not track.
+If the developer wants to have some files inthe working directory which are private and he does not want ot send them into the local repository he can specify those filenames in.gitignore file
+
+
+touch file1 file2 file3 file4
+git status
+The above command will show the four files as untracked files
+	
+cat > .gitignore
+file1
+file2
+file3
+file4
+come out of cat  command by using ctrl+d (EOF)
+
+git status
+Now we will see that git will no longer track the files whose names are mentioned in .gitignore file.
+
+
+10-03-2018
+
+
+The code committed into the git Local repository has to be uplodaded into the remote git repository
+
+1. Open github.com
+2. signup for a free account
+3. signin account
+4. click on + icon on top right corner --> new repository
+5. Enter some reposiroty name --> click on create repository
+6. go to push  an existing repository from command line
+	copy the first command and paste it in git bash
+	the above command will link git local repository with remote repository.
+7. copy the second command and paste in git bash
+	this command will push the code from local repository to remote repository
+	enter username and password of github account.
+
+Note: This is called checkin.
+
+downloading the code from Git
+
+This is called checkout and it can be done in 3 ways
+1. git clone
+2. git fetch
+3. git pull
+
+Git clone:
+==========
+syntax
+	git clone "Remote git hub url"
+	this will download the complete git remote repository irrespective of whether the same repository is present on the local machine or not.
+
+Branching in git:
+====================
+By default all the activities in git happen on the master branch.
+we can create multiple branches so that the developer can create his code seperately for every functionality.
+Branching will enable us to create code in an uncluttered way. i.e., the developer can create a development branch and test branch and store the code related to developmenent on the development branch and the testing code on the test branch.  Once the code has been created correctly it can be merged with the master branch.
+
+to see the list of branches
+git branch
+
+To see all the branches (local and remote)
+git branch -a
+
+to crate a branch
+git branch branchname
+
+to switch into branch
+git checkout branchname
+
+to merge a branch
+first checkout to master branch
+git merge branchname
+
+git fetch
+==========
+this will download only the modified files and save them on a remote branch.  We can checkin into that remote branch and view the modifications
+if we are satisfied with the modifications we can merge them with the master branch.
+
+1. Open github.com --> edit a file --> commit
+2. in git bash
+	git fetch
+3. The modified files will be placed on a remote branch
+4. Git branch -a
+5. Move to that remote branch
+	git checkout /remotes/origin/master
+6. view the changes. If the changes are ok move to the master branch and merge the remote branch.
+    git checkout master
+    git merge /remotes/origin/master
+
+
+git pull
+========
+This will download the modified files and directly merge them with the master branch.
+1. open github.com-->edit a file ---> commit
+2. In git bash
+	git pull
+3. the modified files will be directly placed in the master branch.
+
+
+
+14-03-2018
+
+
+Git Branching:
+==============
+
+Create 2 branches called dev and test
+
+git branch dev
+git branch test
+
+To create a branch and checkout into that branch
+git checkout -b branchname
+
+Bothe the dev branch and test branch will contain all the data from the master branch at the time of creation it will also show the complete commiit history of master branch.
+
+Move into dev branch and modify some files
+
+git checkout dev
+cat > file1
+put some data in this file
+save file1
+
+add this file into stagging area from dev branch
+git add .
+commit the file
+git commit -a "some message"
+
+Any file committed from a branch belongs to taht branch only
+If we checkout from the master branch we will not find those changes in file1 in the master branch
+
+To merge those change with master branch
+First cheout to master branch
+git checkout master
+git merge dev
+
+
+To delete a branch whcih is merged with master branch
+git branch -d branchname (soft delete)
+
+To delete an unmerged branch
+git branch -D branchname (hard delete or force delete)
+
+
+15-03-2018
+===========
+
+Git branching for practice:
+
+search for "git with d3"
+click on ZEN mode
+practice the branching concept
+
+Git amend
+----------
+
+This is used for changing the commit message or the data present within a commit
+
+to change only the latest commit msg
+git comit --amend -m "some message"
+
+to change the code in a specific commit
+1. Modify any file in working directory
+2. Add it to stagging area
+3. git comit --amend -m "some message"
+
+When we use "amend" option in git it will make the existing latest commit as an orphaned commit(unreachable commit) and in its place it will create a new commit.  The commits data and time will not be modified but it will get a new commit id.
+
+To see the list of all cimmits
+git log
+git log -- oneline
+
+But the above 2 commands will show only info about reachable commits.  They will not show info about orphaned commits.
+
+To see all the commit history
+git reflog
+
+Note: all the commits with amend word are orphaned commits
+To make an orphaned commit active again
+
+1. git reflog
+	identify the id of the orphaned commit
+2. git checkout orpahned-commit-ID
+3. cREATE A NEW BRANCH AND CHECKOUT INTO IT
+	GIT CHECKOUT -B BRANCHNAME
+
+The reflog command can also be used for seeing the commit history based on the number i.e., to see all the commits which were done befor HEAD 10
+git reflog HEAD@{10}
+
+to see the commits which were 3 days back
+git reflog HEAD@{3.days.ago}   similary week aswell
+
+
+to see the commits for specific date
+git reflog HEAD@{2018-03-12}
+
+
+Deleting commits from Local Repository:
+=======================================
+
+git reset HEAD~1 : This will delete the latest commit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
